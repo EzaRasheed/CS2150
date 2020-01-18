@@ -2,44 +2,59 @@
 //id: er6qt
 //date: 2-6-19
 //filename: stack.cpp
-//TA Helper: kb3gz
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include "stackNode.h"
 #include "stack.h"
-#include "List.h"
 
 using namespace std;
 
 stack::stack() {
+    head = new stackNode;
     count = 0;
-    the_stack = new List();
 }
-
-
+    
 stack::~stack() {
-    the_stack->makeEmpty();
-    delete the_stack;
+    delete head;
 } 
 
-
 void stack::push(int e) {
-    the_stack->insertBefore(e, the_stack->first());
+    //stackNode* tempNode = new stackNode();
+    stackNode* tempNode = head;
+    head = new stackNode();
+    head->value = e;
+    head->next = tempNode;
+    ///head->next = head;
+    ///head = tempNode;
     count++;
 }
 
 
 int stack::top() {
-    ListItr iter = the_stack->first(); // iterator that points to first node
-    return iter.retrieve(); //access that value of that node (retrieve)
+    if (empty()){
+        cout << "Error: Empty stack!" << endl;
+        exit(-1);
+    }
+    return head->value;
 }
 
 void stack::pop() {
-    ListItr iter = the_stack->first();
-    the_stack->remove(iter.retrieve()); //call remove
-    count--;
+    if (empty()){
+        cout << "Error: Empty stack!" << endl;
+        exit(-1);
+    }
+    delete head;
+    head = head->next;
+    count --;
 } 
 
 bool stack::empty() const {
-    return the_stack->isEmpty(); //isEmpty
+    if (count == 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }

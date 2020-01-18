@@ -3,12 +3,11 @@
 //date: 2-6-19
 //filename: stack.h
 
-
 #ifndef STACK_H
 #define STACK_H
 
 #include <iostream>
-#include "List.h"
+#include "stackNode.h"
 
 
 using namespace std;
@@ -24,12 +23,10 @@ public:
     
     
 private: 
-    List* the_stack;
+    stackNode *head;
     int count;
-    friend class List;
+    friend class stackNode;
 };
     
     
 #endif 
-
-
