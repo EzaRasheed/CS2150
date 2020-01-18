@@ -1,5 +1,6 @@
 # CS2150
-Program and Data Representation
+Program and Data Representation <br />
+Spring 2019
 
 Topics Covered Include:
 - Introduction to C++ (Lab1)
