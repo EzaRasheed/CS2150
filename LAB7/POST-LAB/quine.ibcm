@@ -1,0 +1,25 @@
+C009	000		jmp	start	skip around the variables
+0017	001	lineNum	dw	16	number of lines (int lineNum = 15)
+0000	002	zero	dw	0	int i = 0
+3000	003	loadit	dw	3000	load function
+0001	004	one	dw	1	add 1
+0000	005				leave space for changes
+0000	006				
+0000	007				
+0000	008				
+3001	009	start	load	lineNum	load size(number of total lines) in accumulator
+6018	00A		sub	i	subtract lineNum (size of program) - i (iterator) in accumulator
+E015	00B		jmpl	end	if size - i is < 0, end
+3003	00C		load	loadit	form instruction
+5018	00D		add 	i	add the current index
+400F	00E		store	doit	plant the instruction into the program
+300F	00F	doit	dw	0	
+1800	010		printH		print out what is in accumulator 
+3018	011		load	i	load iterator i
+5004	012		add 	one	increment i (i++)
+4018	013		store	i	store updated i
+C009	014		jmp	start	jump back in loop
+3002	015		load	zero	load 0
+4018	016		store	i	store reseted i (0000)
+1800	017		printH		print out what is in accumulator(0000)
+0000	018	i	dw	0	preset int i = 0
