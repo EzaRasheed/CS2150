@@ -1,0 +1,29 @@
+C009 000		jmp	start	skip around the variables
+0000 001        e	dw	0	int e
+0000 002	z	dw	0	int z
+0000 003 	a	dw	0	int a
+0000 004	zero	dw	0
+0000 005	sum	dw	0	int sum
+0000 006				leave space for changes
+0000 007
+0000 008
+1000 009	start	readH		read first int e
+4001 00A		store	e	
+1000 00B		readH 		read second int z
+4002 00C		store	z
+1000 00D 		readH		read third int a
+4003 00E		store	a
+3005 00F		load	sum	load sum(e + z + a) in accumulator
+5001 010		add	e	add e into accumulator 
+5002 011		add	z	add z into accumulator
+5003 012		add 	a	add a into accumulator
+1800 013		printH		prints the sum of variables e,z,a
+D016 014		jmpe	xit	if sum in accumulator = 0, jump to xit
+C009 015    	jmp	start		if sum is not = 0, jump back to start
+3001 016	xit	load	e	load e into accumulator
+1800 017		printH		print value #1 (e)  
+3002 018		load 	z	load z into accumulator
+1800 019		printH		print value #2 (z)
+3003 01A		load	a	load a into accumulator
+1800 01B		printH		print value #3 (a)
+0000 01C		halt 		halt
