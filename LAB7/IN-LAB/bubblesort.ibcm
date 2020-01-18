@@ -1,0 +1,72 @@
+C010	000		jmp 	start	skip around the variables
+0000	001	i	dw	0	i = 0
+0005	002	max	dw	5	int max = 5
+0004	003	j	dw	4	int j = max -1
+3000	004	loadit	dw	3000	
+0000	005	currentval	dw	0	current = a[j]
+0000	006	preval	dw	0	previous = a[j-1]
+0042	007	a	dw	0	int a[]
+0001	008	one	dw	1	adding and subtracting 1
+4000	009	storeit	dw	4000	
+0000	00A				leave space for changes
+0000	00B				
+0000	00C				
+0000	00D				
+0000	00E				
+0000	00F				
+3002	010	start	load	max	load max in accu. -> i < max
+6001	011		sub	i	max - i in accumulator
+E047	012		jmpl	xit	if max - i is < 0, xit
+D047	013		jmpe	xit	if max - i is = 0, xit
+3003	014	j-loop	load	j	load j in accu. -> j > i
+6001	015		sub	i	j - i in accumulator
+E03B	016		jmpl	xit1	if j - i is < 0, xit1
+D03B	017		jmpe	xit1	if j - i is = 0, xit1
+3004	018		load	loadit	form instruction to load a[j]
+5007	019		add	a	add the base address of the array
+5003	01A		add	j	add the current index a[j]
+401C	01B		store	doit	plant instruction into program
+0000	01C	doit	dw	0	
+4005	01D		store	currentval	store current = a[j]
+3004	01E		load	loadit	
+5007	01F		add	a	
+5003	020		add	j	
+6008	021		sub	one	a[j-1]
+4023	022		store	doit1	plant instruction
+0000	023	doit1	dw	0	
+4006	024		store	preval	store previous = a[j-1]
+3005	025		load	currentval	load current value = a[j]
+6006	026		sub	preval	a[j] - a[j-1]
+E029	027		jmpl	swap1	plant instruction to swap (current > previous)
+C037	028		jmp	end	jump to end of loop 
+3009	029	swap1	load	storeit	form instruction to store a[j] in preval
+5007	02A		add	a	add a[]
+5003	02B		add	j	add j = a[j]
+402E	02C		store	swap2	plant instruction to swap 
+3006	02D		load	preval	load previous value = a[j-1]
+0000	02E	swap2	dw	0	
+3009	02F		load	storeit	store prev. in curr. (a[j] = a[j-1])
+5007	030		add	a	add a[]
+5003	031		add	j	add j = a[j]
+6008	032		sub	one	a[j-1]
+4035	033		store	final	plant instruction for result
+3005	034		load	currentval	load current value
+0000	035	final	dw	0	
+3009	036		load	storeit	store curr. in prev. (a[j-1] = a[j])
+3003	037	end	load	j	load j
+6008	038		sub	one	decrement j (--j)
+4003	039		store	j	store updated value of j
+C014	03A		jmp	j-loop	jump back into j-loop
+3001	03B	xit1	load	i	load i
+5008	03C		add	one	increment i (++i)
+4001	03D		store	i	store value of i 
+3002	03E		load	max	load current max value
+6008	03F		sub	one	subtract 1 from max
+4003	040		store	j	store j's updated value to continue
+C010	041		jmp	start	jump back to start
+0004	042	a[0]	dw	4	a[0] = 4
+0009	043	a[1]	dw	9	a[1] = 9
+0005	044	a[2]	dw	5	a[2] = 5
+0006	045	a[3]	dw	6	a[3] = 6
+0001	046	a[4]	dw	1	a[4] = 1
+0000	047	xit	halt		halt
